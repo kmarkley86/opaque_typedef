@@ -71,7 +71,7 @@ endif()
 #
 function(define_simple_test name main lib)
   add_executable(${name} EXCLUDE_FROM_ALL ${main})
-  target_link_libraries(${name} ${lib})
+  target_link_libraries(${name} PRIVATE ${lib})
   add_test(NAME ${name} COMMAND ${name})
   add_dependencies(tests ${name})
   set_tests_properties(${name} PROPERTIES LABELS ${lib})

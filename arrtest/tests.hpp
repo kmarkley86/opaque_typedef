@@ -28,7 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-#include "test.hpp"
+#include "arrtest/test.hpp"
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>

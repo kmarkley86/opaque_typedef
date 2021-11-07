@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_TEST_HPP
 #define ARR_TEST_TEST_HPP
 //
-// Copyright (c) 2013, 2014, 2016, 2018
+// Copyright (c) 2013, 2014, 2016, 2018, 2021
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -29,10 +29,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-#include "result_counter.hpp"
-#include "test_context.hpp"
-#include "result_reporter.hpp"
-#include "evaluator.hpp"
+#include "arrtest/result_counter.hpp"
+#include "arrtest/test_context.hpp"
+#include "arrtest/result_reporter.hpp"
+#include "arrtest/evaluator.hpp"
 
 /// \file
 

@@ -29,9 +29,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
-#include "result_reporter.hpp"
-#include "result_counter.hpp"
-#include "test_context.hpp"
+#include "arrtest/result_reporter.hpp"
+#include "arrtest/result_counter.hpp"
+#include "arrtest/test_context.hpp"
 #include <exception>
 #include <cstring>
 #include <chrono>
