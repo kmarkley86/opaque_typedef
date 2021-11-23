@@ -39,7 +39,7 @@ namespace opaque {
 ///
 /// std::ostream compatibility for all opaque typedefs
 ///
-template <typename... TP> 
+template <typename... TP>
 std::ostream& operator<<(
     std::ostream& stream,
     const opaque::opaque_storage<TP...>& d) {

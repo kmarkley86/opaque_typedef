@@ -64,5 +64,6 @@ TEST(compare) {
   X x2(4);
   X x3(5);
   CHECK_EQUAL(true, x1==x2);
+  CHECK_EQUAL(true, x1!=x3);
   CHECK_EQUAL(true, x1<x3);
 }

@@ -103,6 +103,15 @@ struct opaque_storage : actual_storage<U> {
     : actual_storage<U>(std::forward<Arg1>(arg1), std::forward<Args>(args)...)
     { }
 
+  friend constexpr auto operator<=>(const O& a, const O& b)
+    noexcept(noexcept(a.value <=> b.value)) {
+    return a.value <=> b.value;
+  }
+  friend constexpr bool operator== (const O& a, const O& b)
+    noexcept(noexcept(a.value ==  b.value)) {
+    return a.value ==  b.value;
+  }
+
 protected:
   ~opaque_storage() = default;
 

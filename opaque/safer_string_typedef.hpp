@@ -501,17 +501,11 @@ public:
     return std::move(lhs.value) + rhs;
   }
 
-  friend bool operator==(const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value == rhs.value;
-  }
   friend bool operator==(const       charT* lhs, const opaque_type& rhs) {
     return lhs       == rhs.value;
   }
   friend bool operator==(const opaque_type& lhs, const       charT* rhs) {
     return lhs.value == rhs      ;
-  }
-  friend bool operator!=(const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value != rhs.value;
   }
   friend bool operator!=(const       charT* lhs, const opaque_type& rhs) {
     return lhs       != rhs.value;
@@ -520,17 +514,11 @@ public:
     return lhs.value != rhs      ;
   }
 
-  friend bool operator< (const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value <  rhs.value;
-  }
   friend bool operator< (const       charT* lhs, const opaque_type& rhs) {
     return lhs       <  rhs.value;
   }
   friend bool operator< (const opaque_type& lhs, const       charT* rhs) {
     return lhs.value <  rhs      ;
-  }
-  friend bool operator> (const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value >  rhs.value;
   }
   friend bool operator> (const       charT* lhs, const opaque_type& rhs) {
     return lhs       >  rhs.value;
@@ -539,17 +527,11 @@ public:
     return lhs.value >  rhs      ;
   }
 
-  friend bool operator<=(const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value <= rhs.value;
-  }
   friend bool operator<=(const       charT* lhs, const opaque_type& rhs) {
     return lhs       <= rhs.value;
   }
   friend bool operator<=(const opaque_type& lhs, const       charT* rhs) {
     return lhs.value <= rhs      ;
-  }
-  friend bool operator>=(const opaque_type& lhs, const opaque_type& rhs) {
-    return lhs.value >= rhs.value;
   }
   friend bool operator>=(const       charT* lhs, const opaque_type& rhs) {
     return lhs       >= rhs.value;

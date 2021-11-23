@@ -9,7 +9,9 @@ project(kmarkley-opaque
   LANGUAGES CXX
 )
 enable_testing()
-add_custom_target(tests)
+if (NOT TARGET tests)
+  add_custom_target(tests)
+endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS NO)
@@ -88,7 +90,7 @@ set_target_properties(arrtest PROPERTIES
 target_include_directories(arrtest
   INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_sources(arrtest PUBLIC
+target_sources(arrtest INTERFACE
   arrtest/result_counter.hpp
   arrtest/test_context.hpp
   arrtest/ostreamable.hpp
@@ -123,7 +125,7 @@ set_target_properties(opaque PROPERTIES
 target_include_directories(opaque
   INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_sources(opaque PUBLIC
+target_sources(opaque INTERFACE
   opaque/storage.hpp
   opaque/ostream.hpp
   opaque/type_traits.hpp
@@ -157,4 +159,13 @@ set(opaque_tests
 foreach(item ${opaque_tests})
   get_filename_component(name ${item} NAME_WE)
   define_simple_test(${name} ${item} opaque)
+endforeach()
+set(opaque_bins
+  example/demo_numeric_typedef.cpp
+  example/tutorial.cpp
+)
+foreach(item ${opaque_bins})
+  get_filename_component(name ${item} NAME_WE)
+  add_executable(${name} ${item})
+  target_link_libraries(${name} opaque)
 endforeach()
