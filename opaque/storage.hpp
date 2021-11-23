@@ -37,10 +37,7 @@ namespace opaque {
 /// \addtogroup internal
 /// @{
 
-struct opaque_tag {
-  auto operator<=>(const opaque_tag&) const = default;
-  bool operator== (const opaque_tag&) const = default;
-};
+struct opaque_tag { };
 
 template <typename T>
 struct actual_storage : opaque_tag {
@@ -68,9 +65,6 @@ struct actual_storage : opaque_tag {
     noexcept(std::is_nothrow_move_constructible_v<T>) {
     return std::move(value);
   }
-
-  auto operator<=>(const actual_storage&) const = default;
-  bool operator== (const actual_storage&) const = default;
 };
 
 //

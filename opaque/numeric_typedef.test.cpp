@@ -490,6 +490,29 @@ SUITE(compare) {
     CHECK_EQUAL(e_return, a_return);
   }
 
+  // counting groups of 2
+  struct two_int : public numeric_typedef<int, two_int> {
+    using base = numeric_typedef<int, two_int>;
+    using base::base;
+    // convertible, so also comparable
+    constexpr two_int(safe_int i) : two_int(i.value / 2) { }
+  };
+
+  TEST(conversion_comparision) {
+    const safe_int two{2};
+    const safe_int four{4};
+    const two_int grouped_two{two};
+    const two_int grouped_four{four};
+    CHECK_EQUAL(1, grouped_two.value);
+    CHECK_EQUAL(2, grouped_four.value);
+    CHECK_EQUAL(true , two==grouped_two);
+    CHECK_EQUAL(false, two==grouped_four);
+    CHECK_EQUAL(false, four==grouped_two);
+    CHECK_EQUAL(true , four==grouped_four);
+    CHECK_EQUAL(two, grouped_two);
+    CHECK_EQUAL(four, grouped_four);
+  }
+
 }
 
 SUITE(binary) {
