@@ -73,6 +73,8 @@ struct framer {
   ~framer() { if (valid) stack.pop_back(); }
   framer(const framer&) = delete;
   framer(framer&& peer) : stack(peer.stack) { valid = false; }
+  framer& operator=(const framer& ) = delete;
+  framer& operator=(      framer&&) = delete;
   explicit operator bool() const { return false; }
 };
 

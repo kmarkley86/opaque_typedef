@@ -32,6 +32,7 @@
 #include "arrtest/result_reporter.hpp"
 #include "arrtest/result_counter.hpp"
 #include "arrtest/test_context.hpp"
+#include <string_view>
 #include <exception>
 #include <cstring>
 #include <chrono>
@@ -152,9 +153,8 @@ struct evaluator {
   ///
   /// Note that evaluator::equal will compare the raw pointer values.
   ///
-  void strings(const char * expected, const char * actual) noexcept {
-    if (nullptr != expected and nullptr != actual and
-        0 == std::strcmp(expected, actual)) {
+  void strings(std::string_view expected, std::string_view actual) noexcept {
+    if (expected == actual) {
       _counter.inc_passed();
       _reporter.passed(_context, expected, actual);
     } else {

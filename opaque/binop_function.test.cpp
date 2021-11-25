@@ -82,7 +82,7 @@ struct foo : tracing_base {
     mark();
     return *this;
   }
-  foo() { } // User-provided for const instances without initializer
+  foo() = default;
 };
 
 TEST(trace_l) {

@@ -58,24 +58,24 @@ public:
   using     opaque_type = R;
   using base::value;
 
-  typedef typename S::traits_type            traits_type;
-  typedef typename S::value_type             value_type;
-  typedef typename S::allocator_type         allocator_type;
-  typedef typename S::size_type              size_type;
-  typedef typename S::difference_type        difference_type;
-  typedef typename S::reference              reference;
-  typedef typename S::const_reference        const_reference;
-  typedef typename S::pointer                pointer;
-  typedef typename S::const_pointer          const_pointer;
-  typedef typename S::iterator               iterator;
-  typedef typename S::const_iterator         const_iterator;
-  typedef typename S::reverse_iterator       reverse_iterator;
-  typedef typename S::const_reverse_iterator const_reverse_iterator;
+  using traits_type            = typename S::traits_type;
+  using value_type             = typename S::value_type;
+  using allocator_type         = typename S::allocator_type;
+  using size_type              = typename S::size_type;
+  using difference_type        = typename S::difference_type;
+  using reference              = typename S::reference;
+  using const_reference        = typename S::const_reference;
+  using pointer                = typename S::pointer;
+  using const_pointer          = typename S::const_pointer;
+  using iterator               = typename S::iterator;
+  using const_iterator         = typename S::const_iterator;
+  using reverse_iterator       = typename S::reverse_iterator;
+  using const_reverse_iterator = typename S::const_reverse_iterator;
   static const size_type npos = size_type(0)-size_type(1);
 
 private:
-  typedef          allocator_type Allocator;
-  typedef typename std::allocator_traits<Allocator>::value_type charT;
+  using Allocator = allocator_type;
+  using charT = typename std::allocator_traits<Allocator>::value_type;
 public:
 
   //
@@ -132,6 +132,8 @@ public:
     : base(str.value, a) { }
   safer_string_typedef(opaque_type&& str, const Allocator& a)
     : base(std::move(str.value), a) { }
+
+  // NOLINTBEGIN
 
   // opaque_type& operator=(const charT* s);
   opaque_type& operator=(charT c) {
@@ -558,6 +560,8 @@ protected:
     static_assert(std::is_base_of<base, opaque_type>::value, "Bad downcast");
     return *static_cast<opaque_type*>(this);
   }
+
+  // NOLINTEND
 
 };
 

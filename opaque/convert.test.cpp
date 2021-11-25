@@ -40,19 +40,17 @@ using operation = tracing_base::operation;
 UNIT_TEST_MAIN
 
 struct foo : tracing_base {
-  foo() { } // User-provided for const instances without initializer
 };
 struct bar : tracing_base {
   bar(const foo& ) noexcept(false) { }
   bar(      foo& ) noexcept(false) { }
   bar(      foo&&) noexcept(false) { }
-  bar() { } // User-provided for const instances without initializer
+  bar() = default;
 };
 struct base : tracing_base {
-  base() { } // User-provided for const instances without initializer
 };
 struct derived : base {
-  derived() { } // User-provided for const instances without initializer
+  derived() = default;
   derived(const derived& ) = default;
   derived(      derived&&) = default;
   derived(const base& ) noexcept { }
@@ -570,7 +568,6 @@ SUITE(data_overloads) {
 
   using underlying = base;
   struct opaque_t : actual_storage<underlying> {
-    opaque_t() { } // User-provided for const instances without initializer
   };
 
   TEST(cmc) {

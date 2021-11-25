@@ -74,7 +74,7 @@ struct tests {
   ///
   static int run(result_reporter& reporter) {
     result_counter full_results;
-    for (auto instance : test_list) {
+    for (auto * instance : test_list) {
       auto results = run_test(reporter, instance);
       if (results.successful()) {
         full_results.inc_passed();
@@ -124,7 +124,7 @@ template <typename T>
 struct test_helper : test {
 
   /// Register the test in the test list
-  test_helper(const char * test_name) : test(test_name) {
+  test_helper(const char * test_name) noexcept : test(test_name) {
     tests::enlist(this);
   }
 

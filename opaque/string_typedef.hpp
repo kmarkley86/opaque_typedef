@@ -61,8 +61,8 @@ public:
   using base::npos;
 
 private:
-  typedef          allocator_type Allocator;
-  typedef typename std::allocator_traits<Allocator>::value_type charT;
+  using Allocator = allocator_type;
+  using charT = typename std::allocator_traits<Allocator>::value_type;
 public:
 
   using base::base;

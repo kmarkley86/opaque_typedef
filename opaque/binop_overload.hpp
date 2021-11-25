@@ -167,10 +167,10 @@ template<typename return_type, typename result_type,
          typename inter1_type, typename inter2_type,
          typename param1_type, typename param2_type>
 static constexpr unsigned binop_conversion_cost() noexcept {
-  static_assert(is_decayed<return_type>::value, "");
-  static_assert(is_decayed<result_type>::value, "");
-  static_assert(is_decayed<inter1_type>::value, "");
-  static_assert(is_decayed<inter2_type>::value, "");
+  static_assert(is_decayed<return_type>::value);
+  static_assert(is_decayed<result_type>::value);
+  static_assert(is_decayed<inter1_type>::value);
+  static_assert(is_decayed<inter2_type>::value);
   return converter<inter1_type,param1_type>::mutable_cost() +
          converter<inter2_type,param2_type>::cost() +
          converter<return_type,result_type>::cost();

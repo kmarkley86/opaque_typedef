@@ -47,15 +47,11 @@ namespace test {
 /// Demangle the given string if it represents a type name
 ///
 inline std::string demangle(const char * type_info_name) {
-  int status;
+  int status = 1;
   std::unique_ptr<char, decltype(std::free)*> name{
       abi::__cxa_demangle(type_info_name, nullptr, nullptr, &status),
       std::free};
-  if (0 == status) {
-    return { name.get() };
-  } else {
-    return { type_info_name };
-  }
+  return { 0==status ? name.get() : type_info_name };
 }
 
 ///

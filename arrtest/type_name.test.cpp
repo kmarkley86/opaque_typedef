@@ -28,6 +28,7 @@
 //
 
 #include "arrtest/arrtest.hpp"
+#include <string_view>
 #include <string>
 
 UNIT_TEST_MAIN
@@ -36,10 +37,9 @@ TEST(type_name) {
   CHECK_EQUAL("void", arr::test::type_name<void>());
   CHECK_EQUAL("char", arr::test::type_name<char>());
   CHECK_EQUAL("float", arr::test::type_name(static_cast<float>(0)));
-  constexpr char std[] = "std::";
-  auto len = sizeof(std) - 1;
-  CHECK_RANGE_EQUAL(std, arr::test::type_name(std::string("hi")).begin(), len);
-  CHECK_RANGE_EQUAL(std, arr::test::type_name<std::string>().begin(), len);
+  constexpr std::string_view std("std::");
+  CHECK_EQUAL(true, arr::test::type_name(std::string("hi")).starts_with(std));
+  CHECK_EQUAL(true, arr::test::type_name<std::string>().starts_with(std));
 }
 
 TEST(demangle) {

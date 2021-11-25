@@ -68,6 +68,10 @@ inline std::ostream& operator<<(std::ostream& stream, const test_context& c) {
     manage_flags(std::ostream& s) : object(s), orig(
         object.setf(std::ios_base::dec, std::ios_base::basefield)) { }
     ~manage_flags() { object.flags(orig); }
+    manage_flags(const manage_flags& ) = delete;
+    manage_flags(      manage_flags&&) = delete;
+    manage_flags& operator=(const manage_flags& ) = delete;
+    manage_flags& operator=(      manage_flags&&) = delete;
   } sentinel(stream);
   if (c.size() > 1) {
     stream << c.front().name << "; call stack:";

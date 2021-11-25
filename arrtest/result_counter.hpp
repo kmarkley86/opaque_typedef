@@ -50,19 +50,23 @@ struct result_counter {
   void inc_raised() noexcept { ++num_raised; }
 
   /// Number of successes
-  unsigned passed() const noexcept { return num_passed; }
+  [[nodiscard]] unsigned passed() const noexcept { return num_passed; }
 
   /// Number of failures
-  unsigned failed() const noexcept { return num_failed; }
+  [[nodiscard]] unsigned failed() const noexcept { return num_failed; }
 
   /// Number of exceptions
-  unsigned raised() const noexcept { return num_raised; }
+  [[nodiscard]] unsigned raised() const noexcept { return num_raised; }
 
   /// Total number of counts
-  unsigned  total() const noexcept { return passed() + failed() + raised(); }
+  [[nodiscard]] unsigned  total() const noexcept {
+    return passed() + failed() + raised();
+  }
 
   /// Are the results completely successful?
-  bool successful() const noexcept { return passed() == total(); }
+  [[nodiscard]] bool successful() const noexcept {
+    return passed() == total();
+  }
 
 private:
   unsigned num_passed = 0; ///< Number of passes

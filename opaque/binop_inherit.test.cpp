@@ -84,7 +84,7 @@ struct noncommutative : actual_storage<underlying>
   using self_t = noncommutative;
   template <typename T> noncommutative(T&& u)
     : actual_storage(std::forward<T>(u)) { }
-  noncommutative() { } // For const instances without initializer
+  noncommutative() = default;
   self_t& operator^=(const self_t& peer) {
     value ^= peer.value;
     return *this;
@@ -96,7 +96,7 @@ struct commutative : actual_storage<underlying>
   using self_t = commutative;
   template <typename T> commutative(T&& u)
     : actual_storage(std::forward<T>(u)) { }
-  commutative() { } // For const instances without initializer
+  commutative() = default;
   self_t& operator^=(const self_t& peer) {
     value ^= peer.value;
     return *this;
@@ -110,7 +110,7 @@ struct operand_converting : actual_storage<underlying>
   using self_t = operand_converting;
   template <typename T> operand_converting(T&& u)
     : actual_storage(std::forward<T>(u)) { }
-  operand_converting() { } // For const instances without initializer
+  operand_converting() = default;
   self_t& operator^=(const self_t& peer) {
     value ^= peer.value;
     return *this;

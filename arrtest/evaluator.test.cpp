@@ -28,6 +28,8 @@
 //
 
 #include "arrtest/arrtest.hpp"
+#include <string_view>
+#include <chrono>
 #include <iostream>
 
 UNIT_TEST_MAIN
@@ -47,7 +49,7 @@ TEST(evaluator) {
   eval(SOURCE_POINT); eval.equal(false, true );
   CHECK_EQUAL(1u, counter.passed());
   CHECK_EQUAL(1u, counter.failed());
-  const char greeting[] = "Hello, world!";
+  const char * greeting = "Hello, world!";
   eval(SOURCE_POINT); eval.strings("Hello, world!", greeting);
   CHECK_EQUAL(2u, counter.passed());
   CHECK_EQUAL(1u, counter.failed());
