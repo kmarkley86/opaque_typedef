@@ -8,9 +8,11 @@ project(kmarkley-opaque
   VERSION ${version}
   LANGUAGES CXX
 )
-enable_testing()
-if (NOT TARGET tests)
-  add_custom_target(tests)
+include(CTest)
+if(BUILD_TESTING)
+  if (NOT TARGET tests)
+    add_custom_target(tests)
+  endif()
 endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
@@ -78,11 +80,13 @@ endif()
 # Test definition
 #
 function(define_simple_test name main lib)
-  add_executable(${name} EXCLUDE_FROM_ALL ${main})
-  target_link_libraries(${name} PRIVATE ${lib})
-  add_test(NAME ${name} COMMAND ${name})
-  add_dependencies(tests ${name})
-  set_tests_properties(${name} PROPERTIES LABELS ${lib})
+  if(BUILD_TESTING)
+    add_executable(${name} EXCLUDE_FROM_ALL ${main})
+    target_link_libraries(${name} PRIVATE ${lib})
+    add_test(NAME ${name} COMMAND ${name})
+    add_dependencies(tests ${name})
+    set_tests_properties(${name} PROPERTIES LABELS ${lib})
+  endif()
 endfunction()
 
 #
