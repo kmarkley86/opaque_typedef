@@ -93,10 +93,10 @@ endfunction()
 # arrtest
 #
 add_library(arrtest INTERFACE)
-set_target_properties(arrtest PROPERTIES
-  VERSION ${version}
-  SOVERSION ${ver_major}
-)
+#set_target_properties(arrtest PROPERTIES
+#  VERSION ${version}
+#  SOVERSION ${ver_major}
+#)
 target_include_directories(arrtest
   INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -128,10 +128,10 @@ endforeach()
 # opaque
 #
 add_library(opaque INTERFACE)
-set_target_properties(opaque PROPERTIES
-  VERSION ${version}
-  SOVERSION ${ver_major}
-)
+#set_target_properties(opaque PROPERTIES
+#  VERSION ${version}
+#  SOVERSION ${ver_major}
+#)
 target_include_directories(opaque
   INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 )
