@@ -121,7 +121,7 @@ set(arrtest_tests
 )
 foreach(item ${arrtest_tests})
   get_filename_component(name ${item} NAME_WE)
-  define_simple_test(${name} ${item} arrtest)
+  define_simple_test(arrtest-${name} ${item} arrtest)
 endforeach()
 
 #
@@ -168,7 +168,7 @@ set(opaque_tests
 )
 foreach(item ${opaque_tests})
   get_filename_component(name ${item} NAME_WE)
-  define_simple_test(${name} ${item} opaque)
+  define_simple_test(opaque-${name} ${item} opaque)
 endforeach()
 set(opaque_bins
   example/demo_numeric_typedef.cpp
