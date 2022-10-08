@@ -1,7 +1,7 @@
 #ifndef OPAQUE_NUMERIC_TYPEDEF_HPP
 #define OPAQUE_NUMERIC_TYPEDEF_HPP
 //
-// Copyright (c) 2015, 2016, 2021
+// Copyright (c) 2015, 2016, 2021, 2022
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -147,25 +147,25 @@ public:
     opaque_type r(value); operator--(); return r; }
 
 
-  constexpr   opaque_type operator+() const &
-    noexcept(noexcept( opaque_type(+             value ) )) {
-    return             opaque_type(+             value ); }
+  constexpr opaque_type operator+() const &
+    noexcept(noexcept( opaque_type(+          value ) )) {
+    return             opaque_type(+          value ); }
 
   constexpr opaque_type operator+()       &&
     noexcept(noexcept( opaque_type(+std::move(value)) )) {
     return             opaque_type(+std::move(value)); }
 
-  constexpr   opaque_type operator-() const &
-    noexcept(noexcept( opaque_type(-             value ) )) {
-    return             opaque_type(-             value ); }
+  constexpr opaque_type operator-() const &
+    noexcept(noexcept( opaque_type(-          value ) )) {
+    return             opaque_type(-          value ); }
 
   constexpr opaque_type operator-()       &&
     noexcept(noexcept( opaque_type(-std::move(value)) )) {
     return             opaque_type(-std::move(value)); }
 
-  constexpr   opaque_type operator~() const &
-    noexcept(noexcept( opaque_type(~             value ) )) {
-    return             opaque_type(~             value ); }
+  constexpr opaque_type operator~() const &
+    noexcept(noexcept( opaque_type(~          value ) )) {
+    return             opaque_type(~          value ); }
 
   constexpr opaque_type operator~()       &&
     noexcept(noexcept( opaque_type(~std::move(value)) )) {
