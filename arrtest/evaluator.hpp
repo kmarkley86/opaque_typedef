@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_EVALUATOR_HPP
 #define ARR_TEST_EVALUATOR_HPP
 //
-// Copyright (c) 2013, 2016, 2018, 2021
+// Copyright (c) 2013, 2016, 2018, 2021, 2023
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,8 @@
 #include <exception>
 #include <cstring>
 #include <chrono>
+#include <type_traits>
+#include <utility>
 
 /// \file
 
@@ -74,7 +76,7 @@ struct evaluator {
   /// Create a framer
   framer<test_context> call_frame(source_point sp) {
     operator()(sp);
-    return framer<test_context>(_context, sp);
+    return {_context, sp};
   }
 
   /// Check whether the argument is true
@@ -97,17 +99,28 @@ struct evaluator {
     }
   }
 
+  template <typename E, typename A>
+  static auto _equal(const E& expected, const A& actual) noexcept {
+    if constexpr (requires (E e, A a) { std::cmp_equal(e, a); }) {
+      return std::cmp_equal(expected, actual);
+    } else {
+      return expected == actual;
+    }
+  }
+
   /// Check whether two values are equal according to operator==
   template <typename E, typename A>
-  void equal(const E& expected, const A& actual) noexcept {
+  bool equal(const E& expected, const A& actual) noexcept {
     try {
-      if (expected == actual) {
+      bool are_equal = _equal(expected, actual);
+      if (are_equal) {
         _counter.inc_passed();
         _reporter.passed(_context, expected, actual);
       } else {
         _counter.inc_failed();
         _reporter.failed(_context, expected, actual);
       }
+      return are_equal;
     } catch (const std::exception& exception) {
       _counter.inc_raised();
       _reporter.raised(_context, expected, actual, exception);
@@ -115,14 +128,14 @@ struct evaluator {
       _counter.inc_raised();
       _reporter.raised(_context, expected, actual, std::current_exception());
     }
+    return false;
   }
 
   /// Check whether two iterator ranges are equal according to operator==
   template <typename Eiter, typename Aiter, typename Count>
   void range_equal(Eiter expected, Aiter actual, Count count) noexcept {
     for (Count i=0; i<count; ++i, ++expected, ++actual) {
-      equal(*expected, *actual);
-      if (not (*expected == *actual)) {
+      if (not equal(*expected, *actual)) {
         _reporter.range_index(i);
       }
     }

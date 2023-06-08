@@ -1,7 +1,7 @@
 #ifndef OPAQUE_BINOP_OVERLOAD_HPP
 #define OPAQUE_BINOP_OVERLOAD_HPP
 //
-// Copyright (c) 2015, 2016, 2021
+// Copyright (c) 2015, 2016, 2021, 2023
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -136,8 +136,8 @@ struct overload<OP,RT,true,P1,P2,I1,I2> {
 
 //
 // Four flavors of overload are required, but we cannot inherit from the same
-// base class more than once (ISO/IEC 14882 §10.1/3).  Work around this by
-// creating four distinct classes to inherit from.
+// base class more than once (ISO/IEC 14882 [class.mi#3]).  Work around this
+// by creating four distinct classes to inherit from.
 //
 
 template <typename OP, typename RT, bool apply_commutativity,
@@ -289,8 +289,8 @@ struct binary_operator
 {
   //
   // Inheriting a function with the same name from different base classes is
-  // ambiguous (ISO/IEC 14882 §10.2/6).  Work around this by pulling the
-  // declarations into the derived class.
+  // ambiguous (ISO/IEC 14882 [class.member.lookup#6]).  Work around this by
+  // pulling the declarations into the derived class.
   //
   using overload_selector_t<OPN,RT,commutative,P1,P2,I1,I2,OPS>::type_1::func;
   using overload_selector_t<OPN,RT,commutative,P1,P2,I1,I2,OPS>::type_2::func;

@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_TEST_CONTEXT_HPP
 #define ARR_TEST_TEST_CONTEXT_HPP
 //
-// Copyright (c) 2013, 2016
+// Copyright (c) 2013, 2016, 2023
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -67,12 +67,12 @@ struct source_point {
 template <typename Container>
 struct framer {
   Container& stack;
-  bool valid = true;
+  bool valid;
   framer(Container& c, const typename Container::value_type& v)
-    : stack(c) { stack.push_back(v); }
+    : stack(c), valid(true) { stack.push_back(v); }
   ~framer() { if (valid) stack.pop_back(); }
   framer(const framer&) = delete;
-  framer(framer&& peer) : stack(peer.stack) { valid = false; }
+  framer(framer&& peer) : stack(peer.stack), valid(false) { }
   framer& operator=(const framer& ) = delete;
   framer& operator=(      framer&&) = delete;
   explicit operator bool() const { return false; }

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013, 2015, 2016
+// Copyright (c) 2013, 2015, 2016, 2023
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -116,6 +116,10 @@ TEST(evaluator) {
   CHECK_EQUAL(7u, counter.passed());
   CHECK_EQUAL(7u, counter.failed());
 
+  // mixed signs
+  eval(SOURCE_POINT); eval.equal(1, 1u);
+  CHECK_EQUAL(8, counter.passed());
+  CHECK_EQUAL(7, counter.failed());
 }
 
 struct foo { bool data = true; };
