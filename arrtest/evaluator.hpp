@@ -36,8 +36,6 @@
 #include <exception>
 #include <cstring>
 #include <chrono>
-#include <type_traits>
-#include <utility>
 
 /// \file
 
@@ -99,20 +97,11 @@ struct evaluator {
     }
   }
 
-  template <typename E, typename A>
-  static auto _equal(const E& expected, const A& actual) noexcept {
-    if constexpr (requires (E e, A a) { std::cmp_equal(e, a); }) {
-      return std::cmp_equal(expected, actual);
-    } else {
-      return expected == actual;
-    }
-  }
-
   /// Check whether two values are equal according to operator==
   template <typename E, typename A>
   bool equal(const E& expected, const A& actual) noexcept {
     try {
-      bool are_equal = _equal(expected, actual);
+      bool are_equal = expected == actual;
       if (are_equal) {
         _counter.inc_passed();
         _reporter.passed(_context, expected, actual);

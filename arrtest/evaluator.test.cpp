@@ -115,11 +115,6 @@ TEST(evaluator) {
   eval(SOURCE_POINT); eval.check(explicit_bool());
   CHECK_EQUAL(7u, counter.passed());
   CHECK_EQUAL(7u, counter.failed());
-
-  // mixed signs
-  eval(SOURCE_POINT); eval.equal(1, 1u);
-  CHECK_EQUAL(8, counter.passed());
-  CHECK_EQUAL(7, counter.failed());
 }
 
 struct foo { bool data = true; };
