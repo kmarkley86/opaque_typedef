@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 include_guard(GLOBAL)
 set(ver_major 2)
-set(ver_minor 0)
-set(ver_patch 2)
+set(ver_minor 1)
+set(ver_patch 0)
 set(version ${ver_major}.${ver_minor}.${ver_patch})
 set(CMAKE_USER_MAKE_RULES_OVERRIDE ${CMAKE_CURRENT_SOURCE_DIR}/configs.cmake)
 project(kmarkley-opaque
@@ -102,6 +102,7 @@ target_include_directories(arrtest
   INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 target_sources(arrtest INTERFACE
+  arrtest/compare.hpp
   arrtest/result_counter.hpp
   arrtest/test_context.hpp
   arrtest/ostreamable.hpp
@@ -113,6 +114,7 @@ target_sources(arrtest INTERFACE
   arrtest/arrtest.hpp
 )
 set(arrtest_tests
+  arrtest/compare.test.cpp
   arrtest/result_counter.test.cpp
   arrtest/test_context.test.cpp
   arrtest/ostreamable.test.cpp

@@ -32,6 +32,7 @@
 #include "arrtest/result_reporter.hpp"
 #include "arrtest/result_counter.hpp"
 #include "arrtest/test_context.hpp"
+#include "arrtest/compare.hpp"
 #include <string_view>
 #include <exception>
 #include <cstring>
@@ -101,7 +102,7 @@ struct evaluator {
   template <typename E, typename A>
   bool equal(const E& expected, const A& actual) noexcept {
     try {
-      bool are_equal = expected == actual;
+      bool are_equal = arr::cmp_equal(expected, actual);
       if (are_equal) {
         _counter.inc_passed();
         _reporter.passed(_context, expected, actual);
@@ -118,6 +119,29 @@ struct evaluator {
       _reporter.raised(_context, expected, actual, std::current_exception());
     }
     return false;
+  }
+
+  /// Check whether two values are unequal according to operator==
+  template <typename E, typename A>
+  bool unequal(const E& expected, const A& actual) noexcept {
+    try {
+      bool are_unequal = arr::cmp_not_equal(expected, actual);
+      if (are_unequal) {
+        _counter.inc_passed();
+        _reporter.passed(_context, expected, actual);
+      } else {
+        _counter.inc_failed();
+        _reporter.failed(_context, expected, actual);
+      }
+      return are_unequal;
+    } catch (const std::exception& exception) {
+      _counter.inc_raised();
+      _reporter.raised(_context, expected, actual, exception);
+    } catch (...) {
+      _counter.inc_raised();
+      _reporter.raised(_context, expected, actual, std::current_exception());
+    }
+    return true;
   }
 
   /// Check whether two iterator ranges are equal according to operator==
@@ -220,6 +244,16 @@ private:
 /// \endcode
 ///
 #define CHECK_EQUAL evaluator(SOURCE_POINT); evaluator.equal
+
+///
+/// Check whether (expected, actual) arguments are unequal using operator==
+///
+/// Example usage:
+/// \code
+/// CHECK_EQUAL(15, object.member_function());
+/// \endcode
+///
+#define CHECK_UNEQUAL evaluator(SOURCE_POINT); evaluator.unequal
 
 ///
 /// Check whether a sequence of values are equal
