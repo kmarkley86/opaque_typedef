@@ -71,8 +71,8 @@ TEST(emit_unprintable) {
 
 TEST(basechange) {
   arr::test::test_context c;
-  c.emplace_back("foo", "bar", 16);
+  c.emplace_back("foo", "bar", 16, 4);
   std::ostringstream stream;
   stream << std::hex << c << "--" << 16;
-  CHECK_EQUAL("foo @ bar:16--10", stream.str());
+  CHECK_EQUAL("foo @ bar(16:4)--10", stream.str());
 }

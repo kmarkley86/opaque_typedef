@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_TEST_CONTEXT_HPP
 #define ARR_TEST_TEST_CONTEXT_HPP
 //
-// Copyright (c) 2013, 2016, 2023
+// Copyright (c) 2013, 2016, 2023, 2026
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -29,6 +29,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 
+#include <cstdint>
+#include <source_location>
+
 /// \file
 
 namespace arr {
@@ -45,21 +48,32 @@ struct source_point {
   constexpr source_point(
       const char * label,
       const char * file_name,
-      unsigned line_number) noexcept
+      std::uint_least32_t line_number,
+      std::uint_least32_t column_number = 0u) noexcept
     : name(label)
     , file(file_name)
     , line(line_number)
+    , column(column_number)
   { }
 
-  const char * name;    ///< Label
-  const char * file;    ///< Source file name
-  unsigned     line;    ///< Source line number
+  constexpr source_point(
+      std::source_location sl = std::source_location::current()) noexcept
+    : name(sl.function_name())
+    , file(sl.file_name())
+    , line(sl.line())
+    , column(sl.column())
+  { }
+
+  const char * name;          ///< Label
+  const char * file;          ///< Source file name
+  std::uint_least32_t line;   ///< Source line number
+  std::uint_least32_t column; ///< Source column number
 };
 
 ///
 /// Create a arr::test::source_point object using the current source point
 ///
-#define SOURCE_POINT arr::test::source_point{__func__, __FILE__, __LINE__}
+#define SOURCE_POINT arr::test::source_point{std::source_location::current()}
 
 ///
 /// Temporary object to maintain test call stack information

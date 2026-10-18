@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_EVALUATOR_HPP
 #define ARR_TEST_EVALUATOR_HPP
 //
-// Copyright (c) 2013, 2016, 2018, 2021, 2023
+// Copyright (c) 2013, 2016, 2018, 2021, 2023, 2026
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -250,7 +250,7 @@ private:
 ///
 /// Example usage:
 /// \code
-/// CHECK_EQUAL(15, object.member_function());
+/// CHECK_UNEQUAL(15, object.member_function());
 /// \endcode
 ///
 #define CHECK_UNEQUAL evaluator(SOURCE_POINT); evaluator.unequal

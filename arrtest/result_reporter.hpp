@@ -1,7 +1,7 @@
 #ifndef ARR_TEST_RESULT_REPORTER_HPP
 #define ARR_TEST_RESULT_REPORTER_HPP
 //
-// Copyright (c) 2013, 2015, 2016, 2021
+// Copyright (c) 2013, 2015, 2016, 2021, 2026
 // Kyle Markley.  All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,11 @@ inline std::ostream& operator<<(std::ostream& stream, const source_point& p) {
   if (p.name) stream << p.name;
   if (p.name and p.file) stream << " @ ";
   if (p.file) stream << p.file;
-  if (p.line) stream << ':' << p.line;
+  if (p.line) {
+    stream << '(' << p.line;
+    if (p.column) stream << ':' << p.column;
+    stream << ')';
+  }
   return stream;
 }
 
